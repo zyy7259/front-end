@@ -1,0 +1,56 @@
+/* reset */
+html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu{margin:0;padding:0;}
+header,footer,section,article,aside,nav,hgroup,address,figure,figcaption,menu,details{display:block;}
+table{border-collapse:collapse;border-spacing:0;}
+caption,th{text-align:left;font-weight:normal;}
+html,body,fieldset,img,iframe,abbr{border:0;}
+i,cite,em,var,address,dfn{font-style:normal;}
+[hidefocus],summary{outline:0;}
+li{list-style:none;}
+h1,h2,h3,h4,h5,h6,small{font-size:100%;}
+sup,sub{font-size:83%;}
+pre,code,kbd,samp{font-family:inherit;}
+q:before,q:after{content:none;}
+textarea{overflow:auto;resize:none;}
+label,summary{cursor:default;}
+a,button{cursor:pointer;}
+h1,h2,h3,h4,h5,h6,em,strong,b{font-weight:bold;}
+del,ins,u,s,a,a:hover{text-decoration:none;}
+body,textarea,input,button,select,keygen,legend{font:12px/1.14 arial,\5b8b\4f53;color:#333;outline:0;}
+body{background:#f7f7f7;}
+a,a:hover{color:#21759b;}
+
+/* function */
+.f-cb:after,.f-cbli li:after{display:block;clear:both;visibility:hidden;height:0;overflow:hidden;content:".";}
+.f-cb,.f-cbli li{zoom:1;}
+.f-ib{display:inline-block;*display:inline;*zoom:1;}
+.f-fl{float:left;}
+.f-fr{float:right;}
+
+/* 统一设置背景图片 */
+.u-btn,.btnc{background:url(../image/main.png) no-repeat 9999px 9999px;}
+
+/* grid */
+.g-topc,.g-usrc,.g-bd{width:990px;margin:0 auto;}
+.g-top{height:27px;background:url(../image/bgtop.png) repeat-x;}
+.g-usr{height:67px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;background:url(../image/bgusr.png) repeat-x;}
+.g-sd{float:right;width:230px;}
+.g-mn{float:left;width:710px;}
+
+/* module */
+/* 用户信息模块 */
+.m-usr{overflow:hidden;}
+.m-usr .u-img{float: left;margin:5px 20px 0 0;}
+.m-usr .greeting{margin:8px 0 6px 71px;color:#666;font-size:18px;text-shadow:1px 1px white;}
+
+/* unit */
+/* 按钮 */
+.u-btn,.u-btn .btnc{display:inline-block;height:22px;line-height:22px;color:#666;font-size:12px;}
+.u-btn{padding-right:2px;background-position:right -82px;}
+.u-btn .btnc{padding: 0 9px 0 11px;background-position: 0 -60px;}
+.u-btn-1 .btnc{padding: 0 24px 0 24px;}
+/* 无边图片容器-默认定宽定高、图片拉伸 */
+.u-img{display:block;position:relative;width:50px;height:50px;}
+.u-img img{display:block;width:100%;height:100%;}
+/* 图片高适应 */
+.u-img-ha,.u-img-ha img{height:auto;}
