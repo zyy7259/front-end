@@ -28,29 +28,82 @@ a,a:hover{color:#21759b;}
 .f-fr{float:right;}
 
 /* 统一设置背景图片 */
-.u-btn,.btnc{background:url(../image/main.png) no-repeat 9999px 9999px;}
+.u-icon,.u-btn,.btnc,.u-bd1,.u-bd2{background:url(../image/main.png) no-repeat 9999px 9999px;}
 
 /* grid */
-.g-topc,.g-usrc,.g-bd{width:990px;margin:0 auto;}
+.g-usrc,.g-bd{width:990px;margin:0 auto;}
 .g-top{height:27px;background:url(../image/bgtop.png) repeat-x;}
 .g-usr{height:67px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;background:url(../image/bgusr.png) repeat-x;}
-.g-sd{float:right;width:230px;}
-.g-mn{float:left;width:710px;}
+.g-bd{margin-top:11px;}
+.g-sd{float:left;width:145px;}
+.g-mn{float:right;box-sizing:border-box;width:835px;border:1px solid #ccc;padding:20px;background-color:white;}
 
 /* module */
+/* top链接模块 */
+.m-links,.m-links li,.m-links a{height:27px;line-height:27px;}
+.m-links{overflow:hidden;}
+.m-links li,.m-links a{display:inline-block;}
+.m-links a,.m-links a:hover{color:#666;font-size:11px;}
+.m-links a.minor{color:#999;}
+.m-links a .u-icon{vertical-align:middle;}
+.m-links-sites{float:left;margin-left:20px;}
+.m-links-psn{float:right;margin-right:20px;}
+.m-links-sites li{margin-right:12px;}
+.m-links-psn li{margin-left:15px;}
 /* 用户信息模块 */
 .m-usr{overflow:hidden;}
-.m-usr .u-img{float: left;margin:5px 20px 0 0;}
-.m-usr .greeting{margin:8px 0 6px 71px;color:#666;font-size:18px;text-shadow:1px 1px white;}
+.m-usr .u-img{float:left;margin:5px 20px 0 0;}
+.m-usr .greeting{margin:8px 0 6px 0;color:#666;font-size:18px;text-shadow:1px 1px white;}
+.m-usr a{color:#666;}
+/* 左侧导航模块 */
+.m-nav{margin-bottom:20px;}
+.m-nav .title,.m-nav ul{border:1px solid #ccc;border-right:1px solid #ccc;}
+.m-nav .title,.m-nav li{height:27px;line-height:27px;}
+.m-nav .text,.m-nav li{padding-left:30px;}
+.m-nav .title{border-top:0;background:url(../image/bgnav.png) repeat-x;overflow:hidden;font-weight:bolder;}
+.m-nav .u-icon{float:left;margin:4px 0 0 8px;}
+.m-nav ul{border-top:0;border-bottom:0;background-color:white;}
+.m-nav li:hover{background-color:#f8f8f8;}
+.m-nav .z-crt{background-color:#ececec;}
+/* 日志管理模块 */
+.m-blogmag h1{margin-bottom:23px;font-size:20px;font-weight:normal;}
+.m-blogmagc .mn{float:left;width:548px;}
+/* 标签页模块 */
+.m-tabs{height:26px;border-bottom:1px solid #bbb;}
+.m-tabs li{display:inline-block;float:left;width:90px;height:25px;line-height:25px;margin-left:-1px;border:1px solid #bbb;background-color:#f7f7f7;text-align:center;}
+.m-tabs li:first-child{margin-left:0;}
+.m-tabs li.z-crt{background-color:white;border-bottom-color:white;}
+/* 侧边栏模块 */
+.m-side{float:right;position:relative;box-sizing:border-box;width:225px;height:306px;background-color:#fafafa;border:1px solid #f5f5f5;border-top:0;border-bottom:0;}
+.m-side .u-bd2-btm{position:absolute;left:0;right:0;bottom:0;}
 
 /* unit */
+/* 小图标 */
+.u-icon{display:inline-block;}
+.u-icon-email{background-position:0 0;width:15px;height:11px;}
+.u-icon-house{background-position:-20px 0;width:16px;height:15px;}
+.u-icon-msg{background-position:-40px 0;width:16px;height:16px;}
+.u-icon-setting{background-position:-60px 0;width:14px;height:14px;}
+.u-icon-smile{backgrond-position:-80px 0;width:16px;height:15px;}
+.u-icon-men{background-position:0 -20px;width:10px;height:12px;}
+.u-icon-arrow-down{background-position:0 -40px;width:7px;height:4px;}
 /* 按钮 */
-.u-btn,.u-btn .btnc{display:inline-block;height:22px;line-height:22px;color:#666;font-size:12px;}
+.u-btn,.u-btn .btnc{display:inline-block;height:22px;line-height:22px;color:#666;font-size:12px;cursor:pointer;}
 .u-btn{padding-right:2px;background-position:right -82px;}
-.u-btn .btnc{padding: 0 9px 0 11px;background-position: 0 -60px;}
-.u-btn-1 .btnc{padding: 0 24px 0 24px;}
+.u-btn .btnc{padding:0 9px 0 11px;background-position:0 -60px;}
+.u-btn-1 .btnc{padding:0 24px 0 24px;}
+/* 兼容IE6的边框 */
+.u-bd1{width:145px;height:2px;}
+.u-bd1-top{background-position:0 -160px;}
+.u-bd1-btm{background-position:0 -165px;}
+.u-bd2{width:225px;height:4px;}
+.u-bd2-btm{background-position:0 -180px;}
 /* 无边图片容器-默认定宽定高、图片拉伸 */
-.u-img{display:block;position:relative;width:50px;height:50px;}
+.u-img{display:inline-block;position:relative;width:50px;height:50px;}
 .u-img img{display:block;width:100%;height:100%;}
 /* 图片高适应 */
 .u-img-ha,.u-img-ha img{height:auto;}
+/* 分隔符 */
+.u-sprt{display:inline-block;width:1px;margin:0 12px;color:#ccc;}
+/* 消息 */
+.u-msg{color:#ff6600;}
