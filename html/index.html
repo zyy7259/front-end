@@ -91,25 +91,57 @@
         <div class="g-mn">
             <div class="m-blogmag">
                 <h1>日志管理</h1>
-                <div class="m-blogmagc">
-                    <div class="mn">
-                        <ul class="m-tabs">
-                            <li class="z-crt">日志</li>
-                            <li>标签</li>
+                <div class="mn">
+                    <ul class="m-tabs">
+                        <li class="z-crt">日志</li>
+                        <li>标签</li>
+                    </ul>
+                    <form class="m-form j-blogForm">
+                        <div class="formitm">
+                            <input type="text" name="title" class="u-ipt j-title">
+                        </div>
+                        <div class="formitm formitm-1">
+                            <textarea name="cnt" class="u-txt j-cnt" placeholder="这里可以写日志哦~"></textarea>
+                        </div>
+                        <div class="formitm formbtns">
+                            <div class="u-btn"><span class="btnc">清&nbsp;空</span></div>
+                            <div class="u-btn"><span class="btnc">发&nbsp;布</span></div>
+                        </div>
+                    </form>
+                    <div class="m-list j-blogList">
+                        <ul>
+                            <li class="lstitm">
+                                <div class="info1">
+                                    <input type="checkbox" class="j-check">
+                                    <a href="" class="j-title">js高性能原则(转载)</a>
+                                    <div class="oprts f-fr">
+                                        <a href="" class="oprt j-edit">编辑</a>
+                                        <a href="" class="oprt j-more">更多<span class="u-icon u-icon-arrow-down"></span></a>
+                                    </div>
+                                    <ul class="m-downlist j-moreoprts" style="display:none;">
+                                        <li><a href="">更多<span class="u-icon u-icon-arrow-down"></span></a></li>
+                                        <li><a href="">删除</a></li>
+                                        <li><a href="">置顶</a></li>
+                                    </ul>
+                                </div>
+                                <div class="info2">
+                                    <span class="date j-date">2010-06-23 11:36</span>
+                                    <span class="read">阅读<span class="j-readnum">11</span></span>
+                                    <span class="comment">评论<span class="cmtnum">0</span></span>
+                                </div>
+                            </li>
                         </ul>
-                        <div class="m-form">
-                            
-                        </div>
-                        <div class="m-list">
-                            
+                        <div class="oprtsall">
+                            <label class="oprt"><input type="checkbox" class="j-checkall">全选</label>
+                            <button type="button" class="oprt j-delete">删除</button>
                         </div>
                     </div>
-                    <div class="m-side">
-                        <div class="m-list2">
-                            
-                        </div>
-                        <div class="u-bd2 u-bd2-btm"></div>
+                </div>
+                <div class="m-side">
+                    <div class="m-list2">
+                        
                     </div>
+                    <div class="u-bd2 u-bd2-btm"></div>
                 </div>
             </div>
         </div>

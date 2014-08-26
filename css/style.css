@@ -67,12 +67,35 @@ a,a:hover{color:#21759b;}
 .m-nav .z-crt{background-color:#ececec;}
 /* 日志管理模块 */
 .m-blogmag h1{margin-bottom:23px;font-size:20px;font-weight:normal;}
-.m-blogmagc .mn{float:left;width:548px;}
+.m-blogmag .mn{float:left;width:548px;}
 /* 标签页模块 */
-.m-tabs{height:26px;border-bottom:1px solid #bbb;}
-.m-tabs li{display:inline-block;float:left;width:90px;height:25px;line-height:25px;margin-left:-1px;border:1px solid #bbb;background-color:#f7f7f7;text-align:center;}
+.m-tabs{height:26px;margin-bottom:13px;border-bottom:1px solid #bbb;}
+.m-tabs li{display:inline-block;float:left;width:90px;height:25px;line-height:25px;margin-left:-1px;border:1px solid #bbb;background-color:#f7f7f7;text-align:center;color:#21759b;font-weight:bold;}
 .m-tabs li:first-child{margin-left:0;}
-.m-tabs li.z-crt{background-color:white;border-bottom-color:white;}
+.m-tabs li.z-crt{background-color:white;border-bottom-color:white;color:#333;}
+/* 表单模块 */
+.m-form{overflow:hidden;margin-bottom:10px;padding:6px 8px 8px 8px;background-color:#ececec;}
+.m-form .formitm{margin-bottom:5px;}
+.m-form .formitm-1{margin-bottom:6px;}
+.m-form .formbtns .u-btn{float:right;margin-left:7px;}
+/* 列表模块 */
+.m-list{margin-bottom:27px;font-size:11px;}
+.m-list .lstitm{display:block;height:46px;padding:3px 3px 4px 20px;border-bottom:1px dotted #d9e1e6;}
+.m-list .info1{height:21px;line-height:21px;color:#21759b;position:relative;}
+.m-list .info1 input[type="checkbox"]{display:inline-block;margin-right:9px;}
+.m-list .info1 .oprts{margin-right:23px;}
+.m-list .info1 .oprt{margin-left:15px;}
+.m-list .info1 .m-downlist{position:absolute;top:-1px;right:0;}
+.m-list .info2{margin-left:22px;height:17px;line-height:17px;color:#7b7b7b;}
+.m-list .info2 .date,.m-list .info2 .read,.m-list .info2 .comment{display:inline-block;}
+.m-list .info2 .date{width:112px;}
+.m-list .info2 .read{width:77px;}
+.m-list .oprtsall{padding:9px 0 0 20px;height:20px;line-height:20px;}
+.m-list .oprtsall .oprt{margin-right:14px;}
+/* 下拉列表 */
+.m-downlist{width:55px;padding-bottom:4px;border:1px solid #c8d9e3;background-color:white;z-index:9;}
+.m-downlist li{padding-left:3px;height:20px;line-height:20px;}
+.m-downlist li:hover{background-color:#ececec;}
 /* 侧边栏模块 */
 .m-side{float:right;position:relative;box-sizing:border-box;width:225px;height:306px;background-color:#fafafa;border:1px solid #f5f5f5;border-top:0;border-bottom:0;}
 .m-side .u-bd2-btm{position:absolute;left:0;right:0;bottom:0;}
@@ -107,3 +130,8 @@ a,a:hover{color:#21759b;}
 .u-sprt{display:inline-block;width:1px;margin:0 12px;color:#ccc;}
 /* 消息 */
 .u-msg{color:#ff6600;}
+/* 输入框 */
+.u-ipt,.u-txt{display:block;box-sizing:border-box;width:100%;}
+.u-ipt{height:23px;line-height:19px;padding:2px 12px;border:0;background-color:#f8f8f8;font-size:11px;color:#333;font-weight:bold;}
+.u-ipt:focus{border:1px solid silver;}
+.u-txt{min-height:94px;border:1px solid #bbb;background-color:white;padding:7px 11px;line-height:18px;font-size:11px;color:#a4a4a4;}
