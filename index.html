@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title></title>
+<meta name="keywords" content=""/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width"/>
+<link rel="stylesheet" href="css/index.css"/>
+<link rel="shortcut icon" href="img/favicon.ico"/>
+<link rel="apple-touch-icon" href="img/touchicon.png"/>
+<script type="text/javascript" src="js/json.js"></script>
+<script type="text/javascript" src="js/zjs.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+</head>
+<body>
+<div class="g-doc">
+    <div class="g-hd">
+        <div class="g-top">
+            <div class="g-topc">
+                <ul class="m-links m-links-sites">
+                    <li><a href="">博客</a></li>
+                    <li><a href="">摄影</a></li>
+                    <li><a href="">随便看看</a></li>
+                </ul>
+                <ul class="m-links m-links-psn">
+                    <li>中午好，<a href=""><span class="j-name">testblog</span></a></li>
+                    <li>(<a href="">&nbsp;<span class="u-icon u-icon-email"></span>&nbsp;5</a>)<span class="u-sprt">|</span><a href=""><span class="u-icon u-icon-house"></span>&nbsp;个人中心</a></li>
+                    <li><a href="">消息 (<span class="u-msg">1274</span>)</a></li>
+                    <li><a href="">反馈</a><span class="u-sprt">|</span><a href="" class="minor">退出</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="g-usr">
+            <div class="g-usrc">
+                <div class="m-usr">
+                    <div class="u-img"><img src="images/usr.png" alt="" class="f-fl"></div>
+                    <div class="cnt">
+                        <div class="greeting">欢迎！<a href=""><span class="j-name">testblog</span></a></div>
+                        <div class="u-btn u-btn-1"><span class="btnc">传相片</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="g-bd f-cb">
+        <div class="g-sd">
+            <div class="m-nav">
+                <div class="u-bd1 u-bd1-top"></div>
+                <div class="title">
+                    <div class="u-icon u-icon-msg"></div>
+                    <div class="text">博客动态</div>
+                </div>
+                <ul>
+                    <li><a href="">博客动态</a></li>
+                    <li><a href="">消息中心</a></li>
+                </ul>
+                <div class="u-bd1 u-bd1-btm"></div>
+            </div>
+            <div class="m-nav">
+                <div class="u-bd1 u-bd1-top"></div>
+                <div class="title">
+                    <div class="u-icon u-icon-setting"></div>
+                    <div class="text">博客管理</div>
+                </div>
+                <ul>
+                    <li class="z-crt"><a href="">日志管理</a></li>
+                    <li><a href="">博友管理</a></li>
+                    <li><a href="">访问统计</a></li>
+                    <li><a href="">博客设置</a></li>
+                    <li><a href="">博客装扮</a></li>
+                </ul>
+                <div class="u-bd1 u-bd1-btm"></div>
+            </div>
+            <div class="m-nav">
+                <div class="u-bd1 u-bd1-top"></div>
+                <div class="title">
+                    <div class="u-icon u-icon-smile"></div>
+                    <div class="text">服务</div>
+                </div>
+                <ul>
+                    <li><a href="">手机博客</a></li>
+                    <li><a href="">博客复制</a></li>
+                    <li><a href="">邮件写博</a></li>
+                    <li><a href="">手机邮</a></li>
+                    <li><a href="">投票</a></li>
+                    <li><a href="">读书</a></li>
+                </ul>
+                <div class="u-bd1 u-bd1-btm"></div>
+            </div>
+        </div>
+        <div class="g-mn">
+            <div class="m-blogmag">
+                <h1>日志管理</h1>
+                <div class="mn">
+                    <ul class="m-tabs">
+                        <li class="z-crt"><span id="blogTab">日志</span></li>
+                        <li><span id="tagTab">标签</span></li>
+                    </ul>
+                    <div id="blogTabCnt">
+                        <form class="m-form" id="blogForm">
+                            <div class="formitm">
+                                <input type="text" name="title" class="u-ipt" id="blogTitle" value="日志标题">
+                            </div>
+                            <div class="formitm formitm-1">
+                                <textarea name="cnt" class="u-txt" id="blogCnt">这里可以写日志哦~</textarea>
+                            </div>
+                            <div class="formitm formbtns">
+                                <div class="u-btn" id="resetBlog"><span class="btnc">清&nbsp;空</span></div>
+                                <div class="u-btn" id="submitBlog"><span class="btnc">发&nbsp;布</span></div>
+                            </div>
+                        </form>
+                        <div class="m-list" id="blogList">
+                            <ul>
+                                <li class="lstitm" style="display:none;" id="blogItmTmp">
+                                    <div class="info1">
+                                        <input type="checkbox" class="j-check">
+                                        <a href="" class="j-title">js高性能原则(转载)</a>
+                                        <div class="oprts f-fr">
+                                            <a href="" class="oprt j-edit">编辑</a>
+                                            <a href="" class="oprt j-more">更多<span class="u-icon u-icon-arrow-down"></span></a>
+                                        </div>
+                                        <ul class="m-downlist j-moreoprts" style="display:none;">
+                                            <li><a href="">更多<span class="u-icon u-icon-arrow-down"></span></a></li>
+                                            <li><a href="">删除</a></li>
+                                            <li><a href="">置顶</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="info2">
+                                        <span class="date j-date">2010-06-23 11:36</span>
+                                        <span class="read">阅读<span class="j-readnum">11</span></span>
+                                        <span class="comment">评论<span class="cmtnum">0</span></span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="oprtsall">
+                                <label class="oprt"><input type="checkbox" id="checkAll">全选</label>
+                                <button type="button" class="oprt" id="deleteAll">删除</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-tagTabCnt" id="tagTabCnt" style="display:none;">
+                        没有标签
+                    </div>
+                </div>
+                <div class="m-side">
+                    <div class="head">好友最新日志</div>
+                    <div class="m-list2">
+                        <ul>
+                            <li class="lstitm">
+                                <div class="u-img u-img-1"><img src="images/friend.png"></div>
+                                <div class="info">
+                                    <div class="name"><a href=""><span class="j-name">小油菜</span></a></div>
+                                    <div class="title"><a href=""><span class="j-title">2hint: 叫你如何把美妞拍的</span></a></div>
+                                </div>
+                            </li>
+                            <li class="lstitm">
+                                <div class="u-img u-img-1"><img src="images/friend.png"></div>
+                                <div class="info">
+                                    <div class="name"><a href=""><span class="j-name">小油菜</span></a></div>
+                                    <div class="title"><a href=""><span class="j-title">2hint: 叫你如何把美妞拍的</span></a></div>
+                                </div>
+                            </li>
+                            <li class="lstitm">
+                                <div class="u-img u-img-1"><img src="images/friend.png"></div>
+                                <div class="info">
+                                    <div class="name"><a href=""><span class="j-name">小油菜</span></a></div>
+                                    <div class="title"><a href=""><span class="j-title">2hint: 叫你如何把美妞拍的</span></a></div>
+                                </div>
+                            </li>
+                            <li class="lstitm">
+                                <div class="u-img u-img-1"><img src="images/friend.png"></div>
+                                <div class="info">
+                                    <div class="name"><a href=""><span class="j-name">小油菜</span></a></div>
+                                    <div class="title"><a href=""><span class="j-title">2hint: 叫你如何把美妞拍的</span></a></div>
+                                </div>
+                            </li>
+                            <li class="lstitm">
+                                <div class="u-img u-img-1"><img src="images/friend.png"></div>
+                                <div class="info">
+                                    <div class="name"><a href=""><span class="j-name">小油菜</span></a></div>
+                                    <div class="title"><a href=""><span class="j-title">2hint: 叫你如何把美妞拍的</span></a></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="u-bd2 u-bd2-btm"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="g-ft">
+        <div class="m-links2">
+            <ul>
+                <li><a href="">公司简介</a><span class="sep">-</span></li>
+                <li><a href="">联系方式</a><span class="sep">-</span></li>
+                <li><a href="">招聘信息</a><span class="sep">-</span></li>
+                <li><a href="">客户服务</a><span class="sep">-</span></li>
+                <li><a href="">相关法律</a><span class="sep">-</span></li>
+                <li><a href="">博客风格</a><span class="sep">-</span></li>
+                <li><a href="">手机博客</a><span class="sep">-</span></li>
+                <li><a href=""><span class="u-icon u-icon-sub"></span>订阅此博客</a></li>
+            </ul>
+        </div>
+        <div class="u-company">网易公司版权所有&nbsp;&copy;1997-2014</div>
+    </div>
+</div>
+</body>
+</html>
