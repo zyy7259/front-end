@@ -77,7 +77,7 @@ a,a:hover{color:#21759b;}
 /* 标签页模块 */
 .m-tabs{height:26px;margin-bottom:13px;border-bottom:1px solid #bbb;}
 .m-tabs li, .m-tabs span{display:inline-block;width:90px;height:25px;line-height:25px;}
-.m-tabs li{float:left;margin-left:-1px;border:1px solid #bbb;background-color:#f7f7f7;text-align:center;color:#21759b;font-weight:bold;cursor:pointer;}
+.m-tabs li{float:left;margin-left:-1px;border:1px solid #bbb;background-color:#f7f7f7;text-align:center;color:#21759b;cursor:pointer;}
 .m-tabs li:first-child{margin-left:0;}
 .m-tabs li.z-crt{background-color:white;border-bottom-color:white;color:#333;}
 /* 表单模块 */
@@ -149,7 +149,7 @@ a,a:hover{color:#21759b;}
 .u-msg{color:#ff6600;}
 /* 输入框 */
 .u-ipt,.u-txt{display:block;box-sizing:border-box;width:100%;}
-.u-ipt{height:23px;line-height:19px;padding:2px 12px;border:0;background-color:#f8f8f8;font-size:11px;color:#333;font-weight:bold;}
+.u-ipt{height:23px;line-height:19px;padding:2px 12px;border:1px solid white;background-color:#f8f8f8;font-size:11px;color:#333;}
 .u-ipt:focus{border:1px solid silver;}
 .u-txt{min-height:94px;border:1px solid #bbb;background-color:white;padding:7px 11px;line-height:18px;font-size:11px;color:#a4a4a4;}
 .u-company{margin-top:24px;color:#7b7b7b;}
