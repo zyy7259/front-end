@@ -89,7 +89,7 @@ a,a:hover{color:#21759b;}
 .m-list{margin-bottom:27px;font-size:11px;}
 .m-list .lstitm{display:block;height:46px;padding:3px 3px 4px 20px;border-bottom:1px dotted #d9e1e6;}
 .m-list .info1{height:21px;line-height:21px;color:#21759b;position:relative;}
-.m-list .info1 input[type="checkbox"]{display:inline-block;margin-right:9px;}
+.m-list .info1 input[type="checkbox"]{display:inline-block;margin-right:9px;vertical-align:middle;}
 .m-list .info1 .oprts{margin-right:23px;}
 .m-list .info1 .oprt{margin-left:15px;}
 .m-list .info1 .m-downlist{position:absolute;top:-1px;right:0;}
