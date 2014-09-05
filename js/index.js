@@ -5,8 +5,13 @@
             this.initNode();
             this.initEvent();
             this.pullBlogList();
+            this.pullFriendBlogList();
         },
         initData: function() {
+            this.userId = 289939;
+            this.userName = 'force2002';
+            this.userNickname = '悟空空';
+            this.blogClassId = 'fks_083069087087080069082083074065092095088064093';
             this.defaultBlogTitle = '日志标题';
             this.defaultBlogContent = '这里可以写日志哦~';
         },
@@ -30,6 +35,9 @@
 
             this.$checkAll = $.get('checkAll');
             this.$deleteAll = $.get('deleteAll');
+
+            this.$friendBlogItmTmp = $.get('friendBlogItmTmp');
+            this.$friendBlogList = $.get('friendBlogList');
         },
         initEvent: function() {
             $.on(this.$blogTab, 'click', this.switchToBlog.bind(this));
@@ -95,6 +103,8 @@
                         break;
                     }
                 }
+            } else {
+                alert('获取日志列表失败，请稍后重试');
             }
             console.log(this.blogList);
         },
@@ -140,6 +150,58 @@
             return $blog;
         },
 
+        pullFriendBlogList: function() {
+            $.rest({
+                url: 'http://fed.hz.netease.com/api/getFriendsLatestBlogs?userid=289939',
+                method: 'GET',
+                onload: this.cbFriendBlogList.bind(this)
+            });
+        },
+        cbFriendBlogList: function(json) {
+            var id = +new Date;
+            if (!!json) {
+                this.friendBlogList = json;
+                for (var i = 0, l = this.friendBlogList.length; i < l; i++) {
+                    var blog = this.friendBlogList[i];
+                    // 修正modifyTime，如果没有modifyTime，将其置为publishTime
+                    if (blog.modifyTime === "0") {
+                        blog.modifyTime = blog.publishTime;
+                    }
+                }
+                this.friendBlogList.sort(function(a, b) {return +b.modifyTime - +a.modifyTime});
+                for (var i = 0, l = this.friendBlogList.length; i < l; i++) {
+                    var blog = this.friendBlogList[i];
+                    // 修正id
+                    blog.id = id++;
+                    this.friendBlogList[blog.id] = blog;
+                    this.appendFriendBlog(blog);
+                }
+            } else {
+                alert('获取好友日志列表失败，请稍后重试');
+            }
+            console.log(this.friendBlogList);
+        },
+        appendFriendBlog: function(blog) {
+            var $blog = this.cloneFriendBlogItm(blog);
+            this.$friendBlogList.appendChild($blog);
+        },
+        cloneFriendBlogItm: function(blog) {
+            $blog = this.$friendBlogItmTmp.cloneNode(true);
+            $blog.removeAttribute('id');
+            // id
+            var $id = $.querySelector($blog, '.j-id');
+            $id.value = blog.id;
+            // name
+            var $name = $.querySelector($blog, '.j-name');
+            $name.innerHTML = blog.userNickname;
+            // title
+            var $title = $.querySelector($blog, '.j-title');
+            $title.innerHTML = blog.title;
+            // show blog
+            $blog.style.display = '';
+            return $blog;
+        },
+
         focusBlogTitle: function() {
             if (this.$blogTitle.value === this.defaultBlogTitle) {
                 this.$blogTitle.value = '';
@@ -179,11 +241,11 @@
                 accessCount: 0,
                 commentCount: 0,
                 allowView: -100,
-                classId: 'fks_083069087087080069082083074065092095088064093',
+                classId: this.blogClassId,
                 id: id,
-                userId: "289939",
-                userName: "force2002",
-                userNickname: "悟空空"
+                userId: this.userId,
+                userName: this.userName,
+                userNickname: this.userNickname
             }
             // rest to post the blog
             var blogStr = '{' + 
