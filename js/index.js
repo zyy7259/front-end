@@ -524,7 +524,7 @@
         },
         doRollFriendBlogs: function() {
             var marginTop = parseFloat(this.$friendBlogList.style.marginTop) || 0;
-            if (-marginTop == this.friendBlogHeight) {
+            if (-marginTop >= this.friendBlogHeight) {
                 this.$friendBlogList.appendChild(this.$friendBlogList.firstChild);
                 this.$friendBlogList.style.marginTop = '0';
                 return;
