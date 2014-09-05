@@ -106,7 +106,6 @@
             } else {
                 alert('获取日志列表失败，请稍后重试');
             }
-            console.log(this.blogList);
         },
 
         appendTopBlog: function(blog) {
@@ -145,6 +144,11 @@
             // comment num
             var $cmtnum = $.querySelector($blog, '.j-cmtnum');
             $cmtnum.innerHTML = blog.commentCount;
+            // private
+            if (blog.allowView == 10000) {
+                var $private = $.querySelector($blog, '.j-private');
+                $private.style.display = '';
+            }
             // show blog
             $blog.style.display = '';
             return $blog;
@@ -179,7 +183,6 @@
             } else {
                 alert('获取好友日志列表失败，请稍后重试');
             }
-            console.log(this.friendBlogList);
         },
         appendFriendBlog: function(blog) {
             var $blog = this.cloneFriendBlogItm(blog);
@@ -347,12 +350,14 @@
             this.$blogContent.value = blog.blogContent;
         },
         showMoreOprts: function() {
+            this.hideMoreOprts();
             var $moreOprts = $.querySelector(this.$currBlog, '.j-moreoprts');
             $moreOprts.style.display = '';
         },
         hideMoreOprts: function() {
-            if (!!this.$currBlog) {
-                var $moreOprts = $.querySelector(this.$currBlog, '.j-moreoprts');
+            var $moreOprtses =  $.querySelectorAll(this.$blogList, '.j-moreoprts');
+            for (var i = 0, l = $moreOprtses.length; i < l; i++) {
+                var $moreOprts = $moreOprtses[i];
                 $moreOprts.style.display = 'none';
             }
         },
@@ -386,9 +391,14 @@
                 // 更新rank
                 var rank = 5;
                 var id = this.idOfCurrBlog();
-                this.blogList[id].rank = rank;
+                var blog = this.blogList[id];
+                blog.rank = rank;
                 var $rank = $.querySelector(this.$currBlog, '.j-rank');
                 $rank.value = rank;
+                // 更新modifyTime
+                blog.modifyTime = +new Date;
+                var $date = $.querySelector(this.$currBlog, '.j-date');
+                $date.innerHTML = zjs.datestr(blog.modifyTime);
                 // 更新菜单
                 $.querySelector(this.$currBlog, '.j-topLi').style.display = 'none';
                 $.querySelector(this.$currBlog, '.j-untopLi').style.display = '';
@@ -412,9 +422,14 @@
                 // 更新rank
                 var rank = 0;
                 var id = this.idOfCurrBlog();
-                this.blogList[id].rank = rank;
+                var blog = this.blogList[id];
+                blog.rank = rank;
                 var $rank = $.querySelector(this.$currBlog, '.j-rank');
                 $rank.value = rank;
+                // 更新modifyTime
+                blog.modifyTime = +new Date;
+                var $date = $.querySelector(this.$currBlog, '.j-date');
+                $date.innerHTML = zjs.datestr(blog.modifyTime);
                 // 更新菜单
                 $.querySelector(this.$currBlog, '.j-topLi').style.display = '';
                 $.querySelector(this.$currBlog, '.j-untopLi').style.display = 'none';
@@ -447,8 +462,6 @@
                     ids.push(id);
                 }
             }
-            console.log(ids);
-            console.log($blogsToDelete);
             if (!ids.length) {
                 alert('请选择要删除的日志');
                 return;

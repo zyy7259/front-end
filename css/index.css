@@ -91,6 +91,7 @@ input[type="checkbox"]{vertical-align:middle;}
 .m-list .lstitm{display:block;height:46px;padding:3px 3px 4px 20px;border-bottom:1px dotted #d9e1e6;}
 .m-list .info1{height:21px;line-height:21px;color:#21759b;position:relative;}
 .m-list .info1 input[type="checkbox"]{display:inline-block;margin-right:9px;}
+.m-list .info1 .u-icon{position:relative;top:2px;}
 .m-list .info1 .oprts{margin-right:23px;}
 .m-list .info1 .oprt{margin-left:15px;}
 .m-list .info1 .u-icon-arrow-down{margin-left:4px;}
@@ -129,7 +130,7 @@ input[type="checkbox"]{vertical-align:middle;}
 .u-icon-setting{background-position:-60px 0;width:14px;height:14px;}
 .u-icon-smile{background-position:-80px 0;width:16px;height:15px;}
 .u-icon-sub{background-position:-100px 0;width:14px;height:14px;}
-.u-icon-men{background-position:0 -20px;width:10px;height:12px;}
+.u-icon-man{background-position:0 -20px;width:10px;height:12px;}
 .u-icon-arrow-down{background-position:0 -40px;width:7px;height:4px;}
 /* 按钮 */
 .u-btn,.u-btn .btnc{display:inline-block;height:22px;line-height:22px;color:#666;font-size:12px;cursor:pointer;}
@@ -155,6 +156,6 @@ input[type="checkbox"]{vertical-align:middle;}
 /* 输入框 */
 .u-ipt,.u-txt{display:block;box-sizing:border-box;width:100%;}
 .u-ipt{height:23px;line-height:19px;padding:2px 12px;border:1px solid white;background-color:#f8f8f8;font-size:11px;color:#333;}
-.u-ipt:focus{border:1px solid silver;}
+.u-ipt:focus{border:1px solid #bbb;}
 .u-txt{min-height:94px;border:1px solid #bbb;background-color:white;padding:7px 11px;line-height:18px;font-size:11px;color:#a4a4a4;}
 .u-company{margin-top:24px;color:#7b7b7b;}
