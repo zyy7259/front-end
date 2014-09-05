@@ -8,13 +8,8 @@
             this.pullFriendBlogList();
         },
         initData: function() {
-            this.userId = 289939;
-            this.userName = 'force2002';
-            this.userNickname = '悟空空';
-            this.blogClassId = 'fks_083069087087080069082083074065092095088064093';
             this.defaultBlogTitle = '日志标题';
             this.defaultBlogContent = '这里可以写日志哦~';
-            this.canRoll = true;
             this.rollTimer = null;
             this.rollInterval = 2000;
             // animation
@@ -94,6 +89,23 @@
             var id = +new Date;
             if (!!json) {
                 this.blogList = json;
+
+                // 初始化用户信息
+                var blog = this.blogList[0];
+                this.userId = blog.userId;
+                this.userName = blog.userName;
+                $usericons = $.querySelectorAll(document, '.j-usericon');
+                for (var i = 0, l = $usericons.length; i < l; i++) {
+                    $usericons[i].src = 'http://os.blog.163.com/common/ava.s?host=' + this.userName + '&b=0&r=-1';
+                }
+                this.userNickname = blog.userNickname;
+                $nicknames = $.querySelectorAll(document, '.j-nickname');
+                for (var i = 0, l = $nicknames.length; i < l; i++) {
+                    $nicknames[i].innerHTML = this.userNickname;
+                }
+                this.blogClassId = blog.classId;
+
+                // 修正数据
                 for (var i = 0, l = this.blogList.length; i < l; i++) {
                     var blog = this.blogList[i];
                     // 修正modifyTime，如果没有modifyTime，将其置为publishTime
@@ -195,7 +207,6 @@
                 }
                 // roll
                 if (this.friendBlogList.length > 5) {
-                    this.friendBlogList.length = 8;
                     this.rollFriendBlogs();
                 }
             } else {
@@ -212,6 +223,9 @@
             // id
             var $id = $.querySelector($blog, '.j-id');
             $id.value = blog.id;
+            // image 
+            var $img = $.querySelector($blog, '.j-img');
+            $img.src = 'http://os.blog.163.com/common/ava.s?host=' + blog.userName + '&b=0&r=-1';
             // name
             var $name = $.querySelector($blog, '.j-name');
             $name.innerHTML = blog.userNickname;
@@ -508,18 +522,15 @@
         },
 
         enterFriendBlogs: function() {
-            this.canRoll = false;
+            clearTimeout(this.rollTimer);
         },
         leaveFriendBlogs: function() {
-            this.canRoll = true;
             this.rollFriendBlogs();
         },
         rollFriendBlogs: function() {
             this.rollTimer = setTimeout(function(){
-                if (this.canRoll) {
-                    this.doRollFriendBlogs();
-                    this.rollFriendBlogs();
-                }
+                this.doRollFriendBlogs();
+                this.rollFriendBlogs();
             }.bind(this), this.rollInterval);
         },
         doRollFriendBlogs: function() {
@@ -531,7 +542,7 @@
             }
             marginTop -= this.animationDelta;
             this.$friendBlogList.style.marginTop = marginTop + 'px';
-            setTimeout(this.doRollFriendBlogs.bind(this), this.animationInterval)
+            setTimeout(this.doRollFriendBlogs.bind(this), this.animationInterval);
         }
     };
     window.onload = function() {
