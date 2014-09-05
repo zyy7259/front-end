@@ -92,7 +92,8 @@ a,a:hover{color:#21759b;}
 .m-list .info1 input[type="checkbox"]{display:inline-block;margin-right:9px;vertical-align:middle;}
 .m-list .info1 .oprts{margin-right:23px;}
 .m-list .info1 .oprt{margin-left:15px;}
-.m-list .info1 .m-downlist{position:absolute;top:-1px;right:0;}
+.m-list .info1 .u-icon-arrow-down{margin-left:4px;}
+.m-list .info1 .m-downlist{position:absolute;top:0px;right:0;}
 .m-list .info2{margin-left:22px;height:17px;line-height:17px;color:#7b7b7b;}
 .m-list .info2 .date,.m-list .info2 .read,.m-list .info2 .comment{display:inline-block;}
 .m-list .info2 .date{width:112px;}
@@ -105,7 +106,7 @@ a,a:hover{color:#21759b;}
 .m-list2 .name, .m-list2 .title{height:19px;line-height:19px;}
 .m-list2 .name{font-weight:bold;}
 /* 下拉列表 */
-.m-downlist{width:55px;padding-bottom:4px;border:1px solid #c8d9e3;background-color:white;z-index:9;}
+.m-downlist{width:60px;padding-bottom:4px;border:1px solid #c8d9e3;background-color:white;z-index:9;}
 .m-downlist li{padding-left:3px;height:20px;line-height:20px;}
 .m-downlist li:hover{background-color:#ececec;}
 /* 侧边栏模块 */

@@ -23,6 +23,7 @@
             this.$resetBlog = $.get('resetBlog');
             this.$blogForm = $.get('blogForm');
 
+            this.$blogListWrap = $.get('blogListWrap');
             this.$blogItmTmp = $.get('blogItmTmp');
             this.$blogList = $.get('blogList');
             this.$topBlogList = $.get('topBlogList');
@@ -41,6 +42,7 @@
             $.on(this.$submitBlog, 'click', this.submitBlog.bind(this));
             $.on(this.$resetBlog, 'click', this.resetBlog.bind(this));
 
+            $.on(document, 'click', this.clickDocument.bind(this));
             $.on(this.$blogList.parentNode, 'click', this.clickBlogList.bind(this));
 
             $.on(this.$checkAll, 'click', this.checkAllBlog.bind(this));
@@ -71,9 +73,17 @@
             var id = +new Date;
             if (!!json) {
                 this.blogList = json;
+                for (var i = 0, l = this.blogList.length; i < l; i++) {
+                    var blog = this.blogList[i];
+                    // 修正modifyTime，如果没有modifyTime，将其置为publishTime
+                    if (blog.modifyTime === "0") {
+                        blog.modifyTime = blog.publishTime;
+                    }
+                }
                 this.blogList.sort(function(a, b) {return +b.modifyTime - +a.modifyTime});
                 for (var i = 0, l = this.blogList.length; i < l; i++) {
                     var blog = this.blogList[i];
+                    // 修正id
                     blog.id = id++;
                     this.blogList[blog.id] = blog;
                     switch (blog.rank) {
@@ -91,21 +101,28 @@
 
         appendTopBlog: function(blog) {
             var $blog = this.cloneBlogItm(blog);
-            this.$topBlogList.appendChild($blog);
+            $.querySelector($blog, '.j-topLi').style.display = 'none';
+            this.$topLiBlogList.appendChild($blog);
         },
         appendBlog: function(blog) {
             var $blog = this.cloneBlogItm(blog);
+            $.querySelector($blog, '.j-untopLi').style.display = 'none';
             this.$blogList.appendChild($blog);
         },
         insertBlog: function(blog) {
             var $blog = this.cloneBlogItm(blog);
+            $.querySelector($blog, '.j-untopLi').style.display = 'none';
             this.$blogList.insertBefore($blog, this.$blogList.firstChild);
         },
         cloneBlogItm: function(blog) {
             var $blog = this.$blogItmTmp.cloneNode(true);
+            $blog.removeAttribute('id');
             // id
             var $id = $.querySelector($blog, '.j-id');
             $id.value = blog.id;
+            // rank
+            var $rank = $.querySelector($blog, '.j-rank');
+            $rank.value = blog.rank;
             // title
             var $title = $.querySelector($blog, '.j-title');
             $title.innerHTML = blog.title;
@@ -144,11 +161,6 @@
             }
         },
         submitBlog: function() {
-            // 如果是编辑，则将新编辑的日志放置于列表最上方
-            if (!!this.$currBlog) {
-                this.$blogList.insertBefore(this.$currBlog, this.$blogList.firstChild);
-            }
-
             var id = this.$blogId.value || +new Date;
             var blogTitle = this.$blogTitle.value;
             var blogContent = this.$blogContent.value;
@@ -185,8 +197,16 @@
         },
         cbSubmitBlog: function(blog, xhr) {
             if (xhr.responseText === '1') {
-                // 如果是编辑，则更新，否则新加
+                // 如果是编辑，则将新编辑的日志放置于列表最上方并更新，否则新加一条日志项
                 if (!!this.$currBlog) {
+                    // 根据是否是置顶日志，将编辑的日志插入相应的列表最上方
+                    var $rank = $.querySelector(this.$currBlog, '.j-rank');
+                    if ($rank.value === '5') {
+                        this.$topBlogList.insertBefore(this.$currBlog, this.$topBlogList.firstChild);
+                    } else {
+                        this.$blogList.insertBefore(this.$currBlog, this.$blogList.firstChild);
+                    }
+                    // 更新编辑的日志数据
                     this.blogList[blog.id] = blog;
                     this.updateModifiedBlog(blog);
                 } else {
@@ -195,7 +215,17 @@
                     this.insertBlog(blog);
                 }
                 this.resetBlog();
+            } else {
+                alert('操作失败，请稍后重试');
             }
+        },
+        updateModifiedBlog: function(blog) {
+            // modify title
+            var $title = $.querySelector(this.$currBlog, '.j-title');
+            $title.innerHTML = blog.title;
+            // modify time
+            var $date = $.querySelector(this.$currBlog, '.j-date');
+            $date.innerHTML = zjs.datestr(blog.modifyTime);
         },
         resetBlog: function() {
             this.$currBlog = null;
@@ -203,30 +233,52 @@
             this.$blogTitle.value = '日志标题';
             this.$blogContent.value = '这里可以写日志哦~';
         },
-        updateModifiedBlog: function(blog) {
-            // title
-            var $title = $.querySelector(this.$currBlog, '.j-title');
-            $title.innerHTML = blog.title;
-            // modify time
-            var $date = $.querySelector(this.$currBlog, '.j-date');
-            $date.innerHTML = zjs.datestr(blog.modifyTime);
-        },
 
+        clickDocument: function() {
+            this.hideMoreOprts();
+        },
         clickBlogList: function(event) {
             var element = event.target|| event.srcElement;
-            this.$currBlog = element.parentNode.parentNode.parentNode;
+            // 找到列表元素
+            this.$currBlog = element;
+            while (!!this.$currBlog && this.$currBlog!==this.$blogListWrap) {
+                if (!!this.$currBlog.className && this.$currBlog.className.indexOf('j-blog') !== -1) break;
+                if (!this.$currBlog.className || this.$currBlog.className.indexOf('j-blog') === -1) {
+                    this.$currBlog = this.$currBlog.parentNode;
+                }
+            }
+            if (!this.$currBlog || this.$currBlog===this.$blogListWrap) return;
             
             var className = element.className;
             if (className.indexOf('j-edit') !== -1) {
                 $.stop(event);
-                this.fillBlogForm();
+                this.editBlog();
+                this.hideMoreOprts();
             } else if (className.indexOf('j-more') !== -1) {
                 $.stop(event);
                 this.showMoreOprts();
+            } else if (className.indexOf('j-unmore') !== -1) {
+                $.stop(event);
+                this.hideMoreOprts();
+            } else if (className.indexOf('j-delete') !== -1) {
+                $.stop(event);
+                this.deleteCurrBlog();
+                this.hideMoreOprts();
+            } else if (className.indexOf('j-top') !== -1) {
+                $.stop(event);
+                this.topCurrBlog();
+                this.hideMoreOprts();
+            } else if (className.indexOf('j-untop') !== -1) {
+                $.stop(event);
+                this.untopCurrBlog();
+                this.hideMoreOprts();
             }
         },
-        fillBlogForm: function() {
-            var id = $.querySelector(this.$currBlog, '.j-id').value;
+        idOfCurrBlog: function() {
+            return $.querySelector(this.$currBlog, '.j-id').value;
+        },
+        editBlog: function() {
+            var id = this.idOfCurrBlog();
             var blog = this.blogList[id];
             this.$blogId.value = id;
             this.$blogTitle.value = blog.title;
@@ -236,13 +288,88 @@
             var $moreOprts = $.querySelector(this.$currBlog, '.j-moreoprts');
             $moreOprts.style.display = '';
         },
+        hideMoreOprts: function() {
+            if (!!this.$currBlog) {
+                var $moreOprts = $.querySelector(this.$currBlog, '.j-moreoprts');
+                $moreOprts.style.display = 'none';
+            }
+        },
+        deleteCurrBlog: function() {
+            var id = this.idOfCurrBlog();
+            $.ajax({
+                url: 'http://fed.hz.netease.com/api/deleteBlogs',
+                method: 'POST',
+                data: '{"id":"' + id + '"}',
+                onload: this.cbDeleteCurrBlog.bind(this)
+            });
+        },
+        cbDeleteCurrBlog: function(xhr) {
+            if (xhr.responseText === '1') {
+                this.$currBlog.parentNode.removeChild(this.$currBlog);
+            } else {
+                alert('删除失败，请稍后重试');
+            }
+        },
+        topCurrBlog: function() {
+            var id = this.idOfCurrBlog();
+            $.ajax({
+                url: 'http://fed.hz.netease.com/api/topBlog',
+                method: 'POST',
+                data: '{"id":"' + id + '"}',
+                onload: this.cbTopCurrBlog.bind(this)
+            })
+        },
+        cbTopCurrBlog: function(xhr) {
+            if (xhr.responseText === '1') {
+                // 更新rank
+                var rank = 5;
+                var id = this.idOfCurrBlog();
+                this.blogList[id].rank = rank;
+                var $rank = $.querySelector(this.$currBlog, '.j-rank');
+                $rank.value = rank;
+                // 更新菜单
+                $.querySelector(this.$currBlog, '.j-topLi').style.display = 'none';
+                $.querySelector(this.$currBlog, '.j-untopLi').style.display = '';
+                // 更新列表
+                this.$topBlogList.insertBefore(this.$currBlog, this.$topBlogList.firstChild);
+            } else {
+                alert('置顶失败，请稍后重试');
+            }
+        },
+        untopCurrBlog: function() {
+            var id = this.idOfCurrBlog();
+            $.ajax({
+                url: 'http://fed.hz.netease.com/api/untopBlog',
+                method: 'POST',
+                data: '{"id":"' + id + '"}',
+                onload: this.cbUntopCurrBlog.bind(this)
+            })
+        },
+        cbUntopCurrBlog: function(xhr) {
+            if (xhr.responseText === '1') {
+                // 更新rank
+                var rank = 0;
+                var id = this.idOfCurrBlog();
+                this.blogList[id].rank = rank;
+                var $rank = $.querySelector(this.$currBlog, '.j-rank');
+                $rank.value = rank;
+                // 更新菜单
+                $.querySelector(this.$currBlog, '.j-topLi').style.display = '';
+                $.querySelector(this.$currBlog, '.j-untopLi').style.display = 'none';
+                // 更新列表
+                this.$blogList.insertBefore(this.$currBlog, this.$blogList.firstChild);
+            } else {
+                alert('取消置顶失败，请稍后重试');
+            }
+        },
 
         checkAllBlog: function() {
             console.log('checkAll');
         },
         deleteAllBlog: function() {
             console.log('deleteAll');
-        }
+        },
+        cbDeleteAllBlog: function() {}
     };
     window.onload = function() {
         page.init();

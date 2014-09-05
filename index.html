@@ -35,7 +35,7 @@
                 <div class="m-usr">
                     <div class="u-img"><img src="http://os.blog.163.com/common/ava.s?host=testblog1&b=0&r=-1" alt="" class="f-fl"></div>
                     <div class="cnt">
-                        <div class="greeting">欢迎！<a href="http://os.blog.163.com/common/ava.s?host=testblog1&b=0&r=-1"><span class="j-name">testblog</span></a></div>
+                        <div class="greeting">欢迎！testblog</div>
                         <div class="u-btn u-btn-1"><span class="btnc">传相片</span></div>
                     </div>
                 </div>
@@ -110,10 +110,11 @@
                                 <div class="u-btn" id="submitBlog"><span class="btnc">发&nbsp;布</span></div>
                             </div>
                         </form>
-                        <div class="m-list">
+                        <div class="m-list" id="blogListWrap">
                             <ul>
-                                <li class="lstitm" style="display:none;" id="blogItmTmp">
+                                <li class="lstitm j-blog" style="display:none;" id="blogItmTmp">
                                     <input type="hidden" name="" class="j-id">
+                                    <input type="hidden" name="" class="j-rank">
                                     <div class="info1">
                                         <input type="checkbox" class="j-check">
                                         <a href="" class="j-title">js高性能原则(转载)</a>
@@ -122,10 +123,10 @@
                                             <a href="" class="oprt j-more">更多<span class="u-icon u-icon-arrow-down"></span></a>
                                         </div>
                                         <ul class="m-downlist j-moreoprts" style="display:none;">
-                                            <li class="j-more"><a href="">更多<span class="u-icon u-icon-arrow-down"></span></a></li>
-                                            <li class="j-delete"><a href="">删除</a></li>
-                                            <li class="j-top"><a href="">置顶</a></li>
-                                            <li class="j-cancelTop"><a href="">取消置顶</a></li>
+                                            <li><a href="" class="j-unmore">更多<span class="u-icon u-icon-arrow-down"></span></a></li>
+                                            <li><a href="" class="j-delete">删除</a></li>
+                                            <li class="j-topLi"><a href="" class="j-top">置顶</a></li>
+                                            <li class="j-untopLi"><a href="" class="j-untop">取消置顶</a></li>
                                         </ul>
                                     </div>
                                     <div class="info2">
@@ -135,7 +136,7 @@
                                     </div>
                                 </li>
                             </ul>
-                            <ul id="topBlogList"></ul>
+                            <ul id="topBlogList" style="border-bottom: 3px solid silver"></ul>
                             <ul id="blogList"></ul>
                             <div class="oprtsall">
                                 <label class="oprt"><input type="checkbox" id="checkAll">全选</label>
