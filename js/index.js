@@ -14,6 +14,16 @@
             this.blogClassId = 'fks_083069087087080069082083074065092095088064093';
             this.defaultBlogTitle = '日志标题';
             this.defaultBlogContent = '这里可以写日志哦~';
+            this.canRoll = true;
+            this.rollTimer = null;
+            this.rollInterval = 2000;
+            // animation
+            this.animationTime = 900;
+            this.friendBlogHeight = 51;
+            this.animationFrameNum = 24;
+            this.animationInterval = this.animationTime * 1.0 / this.animationFrameNum;
+            this.animationDelta = this.friendBlogHeight * 1.0 / this.animationFrameNum;
+            this.rollInterval += this.animationTime;
         },
         initNode: function() {
             this.$blogTab = $.get('blogTab');
@@ -55,6 +65,9 @@
 
             $.on(this.$checkAll, 'click', this.checkAllBlog.bind(this));
             $.on(this.$deleteAll, 'click', this.deleteAllBlog.bind(this));
+
+            $.on(this.$friendBlogList, 'mouseenter', this.enterFriendBlogs.bind(this));
+            $.on(this.$friendBlogList, 'mouseleave', this.leaveFriendBlogs.bind(this));
         },
 
         switchToBlog: function(event) {
@@ -179,6 +192,11 @@
                     blog.id = id++;
                     this.friendBlogList[blog.id] = blog;
                     this.appendFriendBlog(blog);
+                }
+                // roll
+                if (this.friendBlogList.length > 5) {
+                    this.friendBlogList.length = 8;
+                    this.rollFriendBlogs();
                 }
             } else {
                 alert('获取好友日志列表失败，请稍后重试');
@@ -487,6 +505,33 @@
             } else {
                 alert('删除失败，请稍后重试');
             }
+        },
+
+        enterFriendBlogs: function() {
+            this.canRoll = false;
+        },
+        leaveFriendBlogs: function() {
+            this.canRoll = true;
+            this.rollFriendBlogs();
+        },
+        rollFriendBlogs: function() {
+            this.rollTimer = setTimeout(function(){
+                if (this.canRoll) {
+                    this.doRollFriendBlogs();
+                    this.rollFriendBlogs();
+                }
+            }.bind(this), this.rollInterval);
+        },
+        doRollFriendBlogs: function() {
+            var marginTop = parseFloat(this.$friendBlogList.style.marginTop) || 0;
+            if (-marginTop == this.friendBlogHeight) {
+                this.$friendBlogList.appendChild(this.$friendBlogList.firstChild);
+                this.$friendBlogList.style.marginTop = '0';
+                return;
+            }
+            marginTop -= this.animationDelta;
+            this.$friendBlogList.style.marginTop = marginTop + 'px';
+            setTimeout(this.doRollFriendBlogs.bind(this), this.animationInterval)
         }
     };
     window.onload = function() {
