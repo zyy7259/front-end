@@ -16,9 +16,10 @@ label,summary{cursor:default;}
 a,button{cursor:pointer;}
 h1,h2,h3,h4,h5,h6,em,strong,b{font-weight:bold;}
 del,ins,u,s,a,a:hover{text-decoration:none;}
-body,textarea,input,button,select,keygen,legend{font:12px/1.14 arial,\5b8b\4f53;color:#333;outline:0;}
+body,textarea,input,select,keygen,legend{font:12px/1.14 arial,\5b8b\4f53;color:#333;outline:0;}
 body{background:#f7f7f7;}
 a,a:hover{color:#21759b;}
+input[type="checkbox"]{vertical-align:middle;}
 
 /* function */
 .f-cb:after,.f-cbli li:after{display:block;clear:both;visibility:hidden;height:0;overflow:hidden;content:".";}
@@ -89,7 +90,7 @@ a,a:hover{color:#21759b;}
 .m-list{margin-bottom:27px;font-size:11px;}
 .m-list .lstitm{display:block;height:46px;padding:3px 3px 4px 20px;border-bottom:1px dotted #d9e1e6;}
 .m-list .info1{height:21px;line-height:21px;color:#21759b;position:relative;}
-.m-list .info1 input[type="checkbox"]{display:inline-block;margin-right:9px;vertical-align:middle;}
+.m-list .info1 input[type="checkbox"]{display:inline-block;margin-right:9px;}
 .m-list .info1 .oprts{margin-right:23px;}
 .m-list .info1 .oprt{margin-left:15px;}
 .m-list .info1 .u-icon-arrow-down{margin-left:4px;}
@@ -99,7 +100,9 @@ a,a:hover{color:#21759b;}
 .m-list .info2 .date{width:112px;}
 .m-list .info2 .read{width:77px;}
 .m-list .oprtsall{padding:9px 0 0 20px;height:20px;line-height:20px;}
-.m-list .oprtsall .oprt{margin-right:14px;}
+.m-list .oprtsall .oprt{float:left;margin-right:14px;}
+.m-list .oprtsall input[type="checkbox"]{margin-right:4px;}
+.m-list .oprtsall button{width:40px;height:20px;}
 .m-list2{font-size:11px;}
 .m-list2 .lstitm{display:block;height:40px;margin-bottom:11px;overflow:hidden;}
 .m-list2 .u-img{float:left;margin-right:5px;}

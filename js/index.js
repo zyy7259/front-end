@@ -426,12 +426,55 @@
         },
 
         checkAllBlog: function() {
-            console.log('checkAll');
+            var $checkboxes = $.querySelectorAll(this.$blogList, '.j-check');
+            var checked = this.$checkAll.checked;
+            for (var i = 0, l = $checkboxes.length; i < l; i++) {
+                var $checkbox = $checkboxes[i];
+                $checkbox.checked = checked;
+            }
         },
         deleteAllBlog: function() {
-            console.log('deleteAll');
+            this.$checkAll.checked = false;
+            var $checkboxes = $.querySelectorAll(this.$blogList, '.j-check');
+            var $blogsToDelete = [];
+            var ids = [];
+            for (var i = 0, l = $checkboxes.length; i < l; i++) {
+                var $checkbox = $checkboxes[i];
+                if ($checkbox.checked) {
+                    var $blog = $checkbox.parentNode.parentNode;
+                    $blogsToDelete.push($blog);
+                    var id = $.querySelector($blog, '.j-id').value;
+                    ids.push(id);
+                }
+            }
+            console.log(ids);
+            console.log($blogsToDelete);
+            if (!ids.length) {
+                alert('请选择要删除的日志');
+                return;
+            }
+            var idsstr = '[' + ids[0];
+            for (var i = 1, l = ids.length; i < l; i++) {
+                idsstr += ', ' + ids[i];
+            }
+            idsstr += ']';
+            $.ajax({
+                url: 'http://fed.hz.netease.com/api/deleteBlogs',
+                method: 'POST',
+                data: idsstr,
+                onload: this.cbDeleteAllBlog.bind(this, $blogsToDelete)
+            });
         },
-        cbDeleteAllBlog: function() {}
+        cbDeleteAllBlog: function($blogsToDelete, xhr) {
+            if (xhr.responseText === '1') {
+                for (var i = 0, l = $blogsToDelete.length; i < l; i++) {
+                    var $blog = $blogsToDelete[i];
+                    $blog.parentNode.removeChild($blog);
+                }
+            } else {
+                alert('删除失败，请稍后重试');
+            }
+        }
     };
     window.onload = function() {
         page.init();
