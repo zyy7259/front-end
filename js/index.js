@@ -211,8 +211,8 @@
             var $title = $.querySelector($blog, '.j-title');
             $title.innerHTML = blog.title;
             // modify time
-            var $date = $.querySelector($blog, '.j-date');
-            $date.innerHTML = zjs.datestr(blog.modifyTime);
+            var $datetime = $.querySelector($blog, '.j-datetime');
+            $datetime.innerHTML = zjs.datestr(blog.modifyTime);
             // read num
             var $readnum = $.querySelector($blog, '.j-readnum');
             $readnum.innerHTML = blog.accessCount;
@@ -404,8 +404,8 @@
             var $title = $.querySelector(this.$currBlog, '.j-title');
             $title.innerHTML = blog.title;
             // modify time
-            var $date = $.querySelector(this.$currBlog, '.j-date');
-            $date.innerHTML = zjs.datestr(blog.modifyTime);
+            var $datetime = $.querySelector(this.$currBlog, '.j-datetime');
+            $datetime.innerHTML = zjs.datestr(blog.modifyTime);
         },
         /**
          * 重置日志编辑表单
@@ -546,8 +546,8 @@
                 $rank.value = rank;
                 // 更新modifyTime
                 blog.modifyTime = +new Date;
-                var $date = $.querySelector(this.$currBlog, '.j-date');
-                $date.innerHTML = zjs.datestr(blog.modifyTime);
+                var $datetime = $.querySelector(this.$currBlog, '.j-datetime');
+                $datetime.innerHTML = zjs.datestr(blog.modifyTime);
                 // 更新菜单
                 $.querySelector(this.$currBlog, '.j-topLi').style.display = 'none';
                 $.querySelector(this.$currBlog, '.j-untopLi').style.display = '';
@@ -583,8 +583,8 @@
                 $rank.value = rank;
                 // 更新modifyTime
                 blog.modifyTime = +new Date;
-                var $date = $.querySelector(this.$currBlog, '.j-date');
-                $date.innerHTML = zjs.datestr(blog.modifyTime);
+                var $datetime = $.querySelector(this.$currBlog, '.j-datetime');
+                $datetime.innerHTML = zjs.datestr(blog.modifyTime);
                 // 更新菜单
                 $.querySelector(this.$currBlog, '.j-topLi').style.display = '';
                 $.querySelector(this.$currBlog, '.j-untopLi').style.display = 'none';
@@ -617,7 +617,7 @@
             for (var i = 0, l = $checkboxes.length; i < l; i++) {
                 var $checkbox = $checkboxes[i];
                 if ($checkbox.checked) {
-                    var $blog = $checkbox.parentNode.parentNode;
+                    var $blog = $checkbox.parentNode.parentNode.parentNode;
                     $blogsToDelete.push($blog);
                     var id = $.querySelector($blog, '.j-id').value;
                     ids.push(id);

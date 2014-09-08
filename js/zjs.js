@@ -40,9 +40,9 @@
         var tname;
         var citems;
         function findElementsByClassNameInner(n,className){
-            var items= n.children;
+            var items= n.childNodes;
             for(var i=0;i<items.length;i++){
-                if(items[i].className==className){
+                if(!!items[i].className && items[i].className.indexOf(className) !== -1){
                     citems.push(items[i]);
                 }
                 findElementsByClassNameInner(items[i],className);
@@ -50,7 +50,7 @@
             return citems;
         }
         function findElementsByIDInner(n,id){
-            var items= n.children;
+            var items= n.childNodes;
             var items= n.childNodes;
             for(var i=0;i<items.length;i++){
                 if(items[i].id==id){
@@ -120,6 +120,7 @@
      * 添加时间函数
      */
     zjs.addEvent = function(elem, type, handler) {
+        if (!elem) return;
         if (elem.addEventListener) {
             elem.addEventListener(type, handler);
         } else if (elem.attachEvent) {

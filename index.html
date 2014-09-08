@@ -89,83 +89,93 @@
             </div>
         </div>
         <div class="g-mn">
-            <div class="m-blogmag">
-                <h1>日志管理</h1>
-                <div class="mn">
-                    <ul class="m-tabs">
-                        <li class="z-crt"><span id="blogTab">日志</span></li>
-                        <li><span id="tagTab">标签</span></li>
-                    </ul>
-                    <div id="blogTabCnt">
-                        <form class="m-form" id="blogForm">
-                            <input type="hidden" name="" id="blogId">
-                            <div class="formitm">
-                                <input type="text" name="title" class="u-ipt" id="blogTitle" value="日志标题">
-                            </div>
-                            <div class="formitm formitm-1">
-                                <textarea name="cnt" class="u-txt" id="blogContent">这里可以写日志哦~</textarea>
-                            </div>
-                            <div class="formitm formbtns">
-                                <div class="u-btn" id="resetBlog"><span class="btnc">清&nbsp;空</span></div>
-                                <div class="u-btn" id="submitBlog"><span class="btnc">发&nbsp;布</span></div>
-                            </div>
-                        </form>
-                        <div class="m-list" id="blogListWrap">
-                            <ul>
-                                <li class="lstitm j-blog" style="display:none;" id="blogItmTmp">
-                                    <input type="hidden" name="" class="j-id">
-                                    <input type="hidden" name="" class="j-rank">
-                                    <div class="info1">
-                                        <input type="checkbox" class="j-check">
-                                        <span class="u-icon u-icon-man j-private" style="display:none;"></span>
-                                        <a href="" class="j-title">js高性能原则(转载)</a>
-                                        <div class="oprts f-fr">
-                                            <a href="" class="oprt j-edit">编辑</a>
-                                            <a href="" class="oprt j-more">更多<span class="u-icon u-icon-arrow-down"></span></a>
+            <div class="g-mnc f-cb">
+                <div class="m-blogmag">
+                    <h1>日志管理</h1>
+                    <div class="mn">
+                        <ul class="m-tabs">
+                            <li class="z-crt"><span id="blogTab">日志</span></li>
+                            <li><span id="tagTab">标签</span></li>
+                        </ul>
+                        <div id="blogTabCnt">
+                            <form class="m-form" id="blogForm">
+                                <input type="hidden" name="" id="blogId">
+                                <div class="formitm">
+                                    <input type="text" name="title" class="u-ipt" id="blogTitle" value="日志标题">
+                                </div>
+                                <div class="formitm formitm-1">
+                                    <div class="u-txtw">
+                                        <textarea name="cnt" class="u-txt" id="blogContent">这里可以写日志哦~</textarea>
+                                    </div>
+                                </div>
+                                <div class="formitm formbtns">
+                                    <div class="u-btn" id="resetBlog"><span class="btnc">清&nbsp;空</span></div>
+                                    <div class="u-btn" id="submitBlog"><span class="btnc">发&nbsp;布</span></div>
+                                </div>
+                            </form>
+                            <div class="m-list" id="blogListWrap">
+                                <ul>
+                                    <li class="lstitm j-blog" style="display:none;" id="blogItmTmp">
+                                        <input type="hidden" name="" class="j-id">
+                                        <input type="hidden" name="" class="j-rank">
+                                        <div class="info1w">
+                                            <div class="check">
+                                                <input type="checkbox" class="j-check">
+                                            </div>
+                                            <div class="info1">
+                                                <div class="oprts f-fr">
+                                                    <a href="" class="oprt j-more">更多<span class="u-icon u-icon-arrow-down"></span></a>
+                                                    <a href="" class="oprt j-edit">编辑</a>
+                                                </div>
+                                                <span class="u-icon u-icon-man j-private" style="display:none;"></span>
+                                                <a href="" class="j-title">js高性能原则(转载)</a>
+                                                <ul class="m-downlist j-moreoprts" style="display:none;">
+                                                    <li><a href="" class="j-unmore">更多<span class="u-icon u-icon-arrow-down"></span></a></li>
+                                                    <li><a href="" class="j-delete">删除</a></li>
+                                                    <li class="j-topLi"><a href="" class="j-top">置顶</a></li>
+                                                    <li class="j-untopLi"><a href="" class="j-untop">取消置顶</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <ul class="m-downlist j-moreoprts" style="display:none;">
-                                            <li><a href="" class="j-unmore">更多<span class="u-icon u-icon-arrow-down"></span></a></li>
-                                            <li><a href="" class="j-delete">删除</a></li>
-                                            <li class="j-topLi"><a href="" class="j-top">置顶</a></li>
-                                            <li class="j-untopLi"><a href="" class="j-untop">取消置顶</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="info2">
-                                        <span class="date j-date">2010-06-23 11:36</span>
-                                        <span class="read">阅读<span class="j-readnum">11</span></span>
-                                        <span class="comment">评论<span class="j-cmtnum">0</span></span>
-                                    </div>
-                                </li>
-                            </ul>
-                            <ul id="topBlogList"></ul>
-                            <ul id="blogList"></ul>
-                            <div class="oprtsall">
-                                <span class="vhelper"></span>
-                                <label class="oprt"><input type="checkbox" id="checkAll">全选</label>
-                                <button type="button" class="oprt" id="deleteAll">删除</button>
+                                        <div class="info2">
+                                            <span class="date j-datetime">2010-06-23 11:36</span>
+                                            <span class="read">阅读<span class="j-readnum">11</span></span>
+                                            <span class="comment">评论<span class="j-cmtnum">0</span></span>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul id="topBlogList"></ul>
+                                <ul id="blogList"></ul>
+                                <div class="oprtsall">
+                                    <span class="vhelper"></span>
+                                    <label class="oprt"><input type="checkbox" id="checkAll">全选</label>
+                                    <button type="button" class="oprt" id="deleteAll">删除</button>
+                                </div>
                             </div>
                         </div>
+                        <div class="m-tagTabCnt" id="tagTabCnt" style="display:none;">
+                            没有标签
+                        </div>
                     </div>
-                    <div class="m-tagTabCnt" id="tagTabCnt" style="display:none;">
-                        没有标签
+                    <div class="m-side">
+                        <div class="m-sidec">
+                            <div class="head">好友最新日志</div>
+                            <div class="m-list2">
+                                <ul>
+                                    <li class="lstitm j-friendBlog" style="display:none;" id="friendBlogItmTmp">
+                                        <input type="hidden" name="" class="j-id">
+                                        <div class="u-img u-img-1"><img src="" class="j-img"></div>
+                                        <div class="info">
+                                            <div class="name"><a href=""><span class="namec j-name">小油菜</span></a></div>
+                                            <div class="title"><a href=""><span class="titlec j-title">2hint: 叫你如何把美妞拍的</span></a></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul id="friendBlogList" class="list"></ul>
+                            </div>
+                            <div class="u-bd2 u-bd2-btm"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="m-side">
-                    <div class="head">好友最新日志</div>
-                    <div class="m-list2">
-                        <ul>
-                            <li class="lstitm j-friendBlog" style="display:none;" id="friendBlogItmTmp">
-                                <input type="hidden" name="" class="j-id">
-                                <div class="u-img u-img-1"><img src="" class="j-img"></div>
-                                <div class="info">
-                                    <div class="name"><a href=""><span class="j-name">小油菜</span></a></div>
-                                    <div class="title"><a href=""><span class="j-title">2hint: 叫你如何把美妞拍的</span></a></div>
-                                </div>
-                            </li>
-                        </ul>
-                        <ul id="friendBlogList"></ul>
-                    </div>
-                    <div class="u-bd2 u-bd2-btm"></div>
                 </div>
             </div>
         </div>
