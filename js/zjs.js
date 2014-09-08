@@ -10,10 +10,13 @@
     var zjs = {
         version: '1.0.0',
         constructor: zjs,
-        selector: '',
+        selector: ''
     },
     _f = function(){return !1;};
 
+    /**
+     * 根据id获取节点
+     */
     zjs.get = function(id) {
         var elem;
 
@@ -26,7 +29,10 @@
         }
         return elem;
     };
-    //支持 #id|.classname|tagname|tagname.classname|tagname#id四种，如果要多层筛选，请重复调用
+    /**
+     * 根据css选择器获取对应的所有节点
+     * 支持 #id|.classname|tagname|tagname.classname|tagname#id四种，如果要多层筛选，请重复调用
+     */
     zjs.querySelectorAll = function(node,selector){
         if(typeof(document.querySelectorAll)!='undefined'){
             return node.querySelectorAll(selector);
@@ -45,6 +51,7 @@
         }
         function findElementsByIDInner(n,id){
             var items= n.children;
+            var items= n.childNodes;
             for(var i=0;i<items.length;i++){
                 if(items[i].id==id){
                     citems.push(items[i]);
@@ -96,7 +103,10 @@
             return items;
         }
     };
-    //支持 #id|.classname|tagname|tagname.classname|tagname#id四种，如果要多层筛选，请重复调用
+    /**
+     * 根据css选择器获取对应节点
+     * 支持 #id|.classname|tagname|tagname.classname|tagname#id四种，如果要多层筛选，请重复调用
+     */
     zjs.querySelector = function(node,selector){
         if(node==null) return null;
         if(typeof(document.querySelector)!='undefined'){
@@ -106,6 +116,9 @@
         return items.length==0 ? null:items[0]
     };
 
+    /**
+     * 添加时间函数
+     */
     zjs.addEvent = function(elem, type, handler) {
         if (elem.addEventListener) {
             elem.addEventListener(type, handler);
@@ -115,23 +128,35 @@
     };
     zjs.on = zjs.addEvent;
 
+    /**
+     * 阻止事件的冒泡和默认行为
+     */
     zjs.stop = function(event) {
         this.stopBubble(event);
         this.stopDefault(event);
     };
 
+    /**
+     * 阻止事件的冒泡行为
+     */
     zjs.stopBubble = function(event) {
         if (!!event) {
             !!event.stopPropagation ? event.stopPropagation() : event.cancelBubble = !0;
         }
     };
 
+    /**
+     * 阻止事件的默认行为
+     */
     zjs.stopDefault = function(event) {
         if (!!event) {
             !!event.preventDefault ? event.preventDefault() : event.returnValue = !1;
         }
     };
 
+    /**
+     * Ajax请求封装函数
+     */
     zjs.ajax = function(options) {
         var xhr,
             url = options.url || '',
@@ -164,15 +189,21 @@
         }
     };
 
+    /**
+     * rest请求封装函数
+     */
     zjs.rest = function(options) {
         var onload = options.onload || _f;
         options.onload = function(xhr) {
             var r = xhr.responseText
-            onload(!!JSON ? JSON.parse(r) : eval(r));
+            onload((typeof JSON === 'object') ? JSON.parse(r) : eval(r));
         };
         this.ajax(options);
     };
 
+    /**
+     * 将日志转换成字符串
+     */
     zjs.datestr = function(date) {
         date = new Date(+date);
         var year = date.getFullYear(),
@@ -198,6 +229,9 @@
     window.zjs = window.$ = zjs;
 })();
 
+    /**
+     *
+     */
 // Function.prototype extension
 (function() {
     var _o = {},

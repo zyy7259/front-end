@@ -100,10 +100,11 @@ input[type="checkbox"]{vertical-align:middle;}
 .m-list .info2 .date,.m-list .info2 .read,.m-list .info2 .comment{display:inline-block;}
 .m-list .info2 .date{width:112px;}
 .m-list .info2 .read{width:77px;}
-.m-list .oprtsall{padding:9px 0 0 20px;height:20px;line-height:20px;}
-.m-list .oprtsall .oprt{float:left;margin-right:14px;}
+.m-list .oprtsall{padding:9px 0 0 20px;overflow:hidden;}
+.m-list .oprtsall .vhelper{display:inline-block;height:100%;vertical-align:middle;}
+.m-list .oprtsall .oprt{margin-right:14px;vertical-align:middle;}
 .m-list .oprtsall input[type="checkbox"]{margin-right:4px;}
-.m-list .oprtsall button{width:40px;height:20px;}
+.m-list .oprtsall button{padding:1px 6px;}
 .m-list2{font-size:11px;}
 .m-list2 .lstitm{display:block;height:40px;margin-bottom:11px;overflow:hidden;}
 .m-list2 .u-img{float:left;margin-right:5px;}

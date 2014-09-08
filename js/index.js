@@ -1,5 +1,8 @@
 (function() {
     var page = {
+        /**
+         * 初始化
+         */
         init: function() {
             this.initData();
             this.initNode();
@@ -7,12 +10,17 @@
             this.pullBlogList();
             this.pullFriendBlogList();
         },
+        /**
+         * 初始化数据
+         */
         initData: function() {
+            // 默认的日志标题和内容
             this.defaultBlogTitle = '日志标题';
             this.defaultBlogContent = '这里可以写日志哦~';
+            // 滚动动画相关变量
             this.rollTimer = null;
             this.rollInterval = 2000;
-            // animation
+            // 动画相关变量
             this.animationTime = 900;
             this.friendBlogHeight = 51;
             this.animationFrameNum = 24;
@@ -20,12 +28,17 @@
             this.animationDelta = this.friendBlogHeight * 1.0 / this.animationFrameNum;
             this.rollInterval += this.animationTime;
         },
+        /**
+         * 初始化节点
+         */
         initNode: function() {
+            // 标签页相关节点节点
             this.$blogTab = $.get('blogTab');
             this.$blogTabCnt = $.get('blogTabCnt');
             this.$tagTab = $.get('tagTab');
             this.$tagTabCnt = $.get('tagTabCnt');
 
+            // 日志编辑表格相关节点
             this.$blogId = $.get('blogId');
             this.$blogTitle = $.get('blogTitle');
             this.$blogContent = $.get('blogContent');
@@ -33,21 +46,29 @@
             this.$resetBlog = $.get('resetBlog');
             this.$blogForm = $.get('blogForm');
 
+            // 日志列表相关节点
             this.$blogListWrap = $.get('blogListWrap');
             this.$blogItmTmp = $.get('blogItmTmp');
             this.$blogList = $.get('blogList');
             this.$topBlogList = $.get('topBlogList');
 
+            // 批量操作相关节点
             this.$checkAll = $.get('checkAll');
             this.$deleteAll = $.get('deleteAll');
 
+            // 好友日志相关节点
             this.$friendBlogItmTmp = $.get('friendBlogItmTmp');
             this.$friendBlogList = $.get('friendBlogList');
         },
+        /**
+         * 初始化事件
+         */
         initEvent: function() {
+            // 标签页切换相关事件
             $.on(this.$blogTab, 'click', this.switchToBlog.bind(this));
             $.on(this.$tagTab, 'click', this.switchToTag.bind(this));
 
+            // 日志编辑表格相关事件
             $.on(this.$blogTitle, 'focus', this.focusBlogTitle.bind(this));
             $.on(this.$blogTitle, 'blur', this.blurBlogTitle.bind(this));
             $.on(this.$blogContent, 'focus', this.focusBlogCnt.bind(this));
@@ -55,22 +76,31 @@
             $.on(this.$submitBlog, 'click', this.submitBlog.bind(this));
             $.on(this.$resetBlog, 'click', this.resetBlog.bind(this));
 
+            // 日志列表事件代理
             $.on(document, 'click', this.clickDocument.bind(this));
-            $.on(this.$blogList.parentNode, 'click', this.clickBlogList.bind(this));
+            $.on(this.$blogListWrap, 'click', this.clickBlogList.bind(this));
 
+            // 批量操作相关事件
             $.on(this.$checkAll, 'click', this.checkAllBlog.bind(this));
             $.on(this.$deleteAll, 'click', this.deleteAllBlog.bind(this));
 
+            // 好友日志动画相关事件
             $.on(this.$friendBlogList, 'mouseenter', this.enterFriendBlogs.bind(this));
             $.on(this.$friendBlogList, 'mouseleave', this.leaveFriendBlogs.bind(this));
         },
 
+        /**
+         * 切换到日志tab，隐藏标签tab
+         */
         switchToBlog: function(event) {
             this.$blogTab.parentNode.className = 'z-crt';
             this.$tagTab.parentNode.className = '';
             this.$blogTabCnt.style.display = '';
             this.$tagTabCnt.style.display = 'none';
         },
+        /**
+         * 标签tab，隐藏日志tab
+         */
         switchToTag: function(event) {
             this.$blogTab.parentNode.className = '';
             this.$tagTab.parentNode.className = 'z-crt';
@@ -78,6 +108,9 @@
             this.$tagTabCnt.style.display = '';
         },
 
+        /**
+         * 从服务器拉取日志列表
+         */
         pullBlogList: function() {
             $.rest({
                 url: 'http://fed.hz.netease.com/api/getblogs',
@@ -85,6 +118,9 @@
                 onload: this.cbBlogList.bind(this)
             });
         },
+        /**
+         * 拉取日志列表后的回调函数
+         */
         cbBlogList: function(json) {
             var id = +new Date;
             if (!!json) {
@@ -105,7 +141,7 @@
                 }
                 this.blogClassId = blog.classId;
 
-                // 修正数据
+                // 修正数据，服务器数据是不完善的
                 for (var i = 0, l = this.blogList.length; i < l; i++) {
                     var blog = this.blogList[i];
                     // 修正modifyTime，如果没有modifyTime，将其置为publishTime
@@ -113,12 +149,14 @@
                         blog.modifyTime = blog.publishTime;
                     }
                 }
+                // 将列表按照modifyTime字段进行倒序排列
                 this.blogList.sort(function(a, b) {return +b.modifyTime - +a.modifyTime});
                 for (var i = 0, l = this.blogList.length; i < l; i++) {
                     var blog = this.blogList[i];
-                    // 修正id
+                    // 修正id，服务器的id是不正确的
                     blog.id = id++;
                     this.blogList[blog.id] = blog;
+                    // 按照rank字段添加日志和置顶日志
                     switch (blog.rank) {
                         case "0":
                         this.appendBlog(blog);
@@ -133,21 +171,33 @@
             }
         },
 
+        /**
+         * 添加置顶日志
+         */
         appendTopBlog: function(blog) {
             var $blog = this.cloneBlogItm(blog);
             $.querySelector($blog, '.j-topLi').style.display = 'none';
             this.$topLiBlogList.appendChild($blog);
         },
+        /**
+         * 添加日志
+         */
         appendBlog: function(blog) {
             var $blog = this.cloneBlogItm(blog);
             $.querySelector($blog, '.j-untopLi').style.display = 'none';
             this.$blogList.appendChild($blog);
         },
+        /**
+         * 插入日志到日志列表的第一项
+         */
         insertBlog: function(blog) {
             var $blog = this.cloneBlogItm(blog);
             $.querySelector($blog, '.j-untopLi').style.display = 'none';
             this.$blogList.insertBefore($blog, this.$blogList.firstChild);
         },
+        /**
+         * 复制日志节点，并初始化公共信息
+         */
         cloneBlogItm: function(blog) {
             var $blog = this.$blogItmTmp.cloneNode(true);
             $blog.removeAttribute('id');
@@ -179,6 +229,9 @@
             return $blog;
         },
 
+        /**
+         * 拉取好友日志列表
+         */
         pullFriendBlogList: function() {
             $.rest({
                 url: 'http://fed.hz.netease.com/api/getFriendsLatestBlogs?userid=289939',
@@ -186,6 +239,9 @@
                 onload: this.cbFriendBlogList.bind(this)
             });
         },
+        /**
+         * 拉取好友日志列表回调函数
+         */
         cbFriendBlogList: function(json) {
             var id = +new Date;
             if (!!json) {
@@ -205,7 +261,7 @@
                     this.friendBlogList[blog.id] = blog;
                     this.appendFriendBlog(blog);
                 }
-                // roll
+                // 将好友列表用动画展示起来
                 if (this.friendBlogList.length > 5) {
                     this.rollFriendBlogs();
                 }
@@ -213,10 +269,16 @@
                 alert('获取好友日志列表失败，请稍后重试');
             }
         },
+        /**
+         * 添加好友日志项
+         */
         appendFriendBlog: function(blog) {
             var $blog = this.cloneFriendBlogItm(blog);
             this.$friendBlogList.appendChild($blog);
         },
+        /**
+         * 复制好友日志节点，并初始化相关信息
+         */
         cloneFriendBlogItm: function(blog) {
             $blog = this.$friendBlogItmTmp.cloneNode(true);
             $blog.removeAttribute('id');
@@ -237,26 +299,41 @@
             return $blog;
         },
 
+        /**
+         * 日志编辑表单的标题获取焦点
+         */
         focusBlogTitle: function() {
             if (this.$blogTitle.value === this.defaultBlogTitle) {
                 this.$blogTitle.value = '';
             }
         },
+        /**
+         * 日志编辑表单的标题失去焦点
+         */
         blurBlogTitle: function() {
             if (this.$blogTitle.value === '') {
                 this.$blogTitle.value = this.defaultBlogTitle;
             }
         },
+        /**
+         * 日志编辑表单的内容获取焦点
+         */
         focusBlogCnt: function() {
             if (this.$blogContent.value === this.defaultBlogContent) {
                 this.$blogContent.value = '';
             }
         },
+        /**
+         * 日志编辑表单的内容失去焦点
+         */
         blurBlogCnt: function() {
             if (this.$blogContent.value === '') {
                 this.$blogContent.value = this.defaultBlogContent;
             }
         },
+        /**
+         * 提交日志编辑表单
+         */
         submitBlog: function() {
             var id = this.$blogId.value || +new Date;
             var blogTitle = this.$blogTitle.value;
@@ -269,6 +346,7 @@
                 alert('请填写日志内容');
                 return;
             }
+            // 拼装日志数据
             var blog = {
                 title: blogTitle,
                 blogContent: blogContent,
@@ -282,7 +360,6 @@
                 userName: this.userName,
                 userNickname: this.userNickname
             }
-            // rest to post the blog
             var blogStr = '{' + 
                             '"title":"' + blogTitle + '","blogContent":"' + blogContent + '"}';
             $.ajax({
@@ -292,6 +369,9 @@
                 onload: this.cbSubmitBlog.bind(this, blog)
             });
         },
+        /**
+         * 提交日志表单的回调函数
+         */
         cbSubmitBlog: function(blog, xhr) {
             if (xhr.responseText === '1') {
                 // 如果是编辑，则将新编辑的日志放置于列表最上方并更新，否则新加一条日志项
@@ -316,6 +396,9 @@
                 alert('操作失败，请稍后重试');
             }
         },
+        /**
+         * 更新被修改的日志的信息
+         */
         updateModifiedBlog: function(blog) {
             // modify title
             var $title = $.querySelector(this.$currBlog, '.j-title');
@@ -324,6 +407,9 @@
             var $date = $.querySelector(this.$currBlog, '.j-date');
             $date.innerHTML = zjs.datestr(blog.modifyTime);
         },
+        /**
+         * 重置日志编辑表单
+         */
         resetBlog: function() {
             this.$currBlog = null;
             this.$blogId.value = '';
@@ -331,12 +417,18 @@
             this.$blogContent.value = '这里可以写日志哦~';
         },
 
+        /**
+         * 点击页面的代理函数
+         */
         clickDocument: function() {
             this.hideMoreOprts();
         },
+        /**
+         * 点击日志列表的代理函数
+         */
         clickBlogList: function(event) {
             var element = event.target|| event.srcElement;
-            // 找到列表元素
+            // 找到对应的列表项
             this.$currBlog = element;
             while (!!this.$currBlog && this.$currBlog!==this.$blogListWrap) {
                 if (!!this.$currBlog.className && this.$currBlog.className.indexOf('j-blog') !== -1) break;
@@ -346,6 +438,7 @@
             }
             if (!this.$currBlog || this.$currBlog===this.$blogListWrap) return;
             
+            // 根据不同的命令采取不同的操作
             var className = element.className;
             if (className.indexOf('j-edit') !== -1) {
                 $.stop(event);
@@ -371,9 +464,15 @@
                 this.hideMoreOprts();
             }
         },
+        /**
+         * 获取当前被操作日志的id
+         */
         idOfCurrBlog: function() {
             return $.querySelector(this.$currBlog, '.j-id').value;
         },
+        /**
+         * 编辑当前的日志
+         */
         editBlog: function() {
             var id = this.idOfCurrBlog();
             var blog = this.blogList[id];
@@ -381,18 +480,27 @@
             this.$blogTitle.value = blog.title;
             this.$blogContent.value = blog.blogContent;
         },
+        /**
+         * 显示当前日志对应的菜单
+         */
         showMoreOprts: function() {
             this.hideMoreOprts();
             var $moreOprts = $.querySelector(this.$currBlog, '.j-moreoprts');
             $moreOprts.style.display = '';
         },
+        /**
+         * 隐藏当前日志对应的菜单
+         */
         hideMoreOprts: function() {
-            var $moreOprtses =  $.querySelectorAll(this.$blogList, '.j-moreoprts');
+            var $moreOprtses =  $.querySelectorAll(this.$blogListWrap, '.j-moreoprts');
             for (var i = 0, l = $moreOprtses.length; i < l; i++) {
                 var $moreOprts = $moreOprtses[i];
                 $moreOprts.style.display = 'none';
             }
         },
+        /**
+         * 删除当前日志
+         */
         deleteCurrBlog: function() {
             var id = this.idOfCurrBlog();
             $.ajax({
@@ -402,6 +510,9 @@
                 onload: this.cbDeleteCurrBlog.bind(this)
             });
         },
+        /**
+         * 删除当前日志的回调函数
+         */
         cbDeleteCurrBlog: function(xhr) {
             if (xhr.responseText === '1') {
                 this.$currBlog.parentNode.removeChild(this.$currBlog);
@@ -409,6 +520,9 @@
                 alert('删除失败，请稍后重试');
             }
         },
+        /**
+         * 置顶当前日志
+         */
         topCurrBlog: function() {
             var id = this.idOfCurrBlog();
             $.ajax({
@@ -418,6 +532,9 @@
                 onload: this.cbTopCurrBlog.bind(this)
             })
         },
+        /**
+         * 置顶当前日志的回调函数
+         */
         cbTopCurrBlog: function(xhr) {
             if (xhr.responseText === '1') {
                 // 更新rank
@@ -440,6 +557,9 @@
                 alert('置顶失败，请稍后重试');
             }
         },
+        /**
+         * 取消置顶当前日志
+         */
         untopCurrBlog: function() {
             var id = this.idOfCurrBlog();
             $.ajax({
@@ -449,6 +569,9 @@
                 onload: this.cbUntopCurrBlog.bind(this)
             })
         },
+        /**
+         * 取消置顶当前日志的回调函数
+         */
         cbUntopCurrBlog: function(xhr) {
             if (xhr.responseText === '1') {
                 // 更新rank
@@ -472,6 +595,9 @@
             }
         },
 
+        /**
+         * 勾选所有日志
+         */
         checkAllBlog: function() {
             var $checkboxes = $.querySelectorAll(this.$blogList, '.j-check');
             var checked = this.$checkAll.checked;
@@ -480,6 +606,9 @@
                 $checkbox.checked = checked;
             }
         },
+        /**
+         * 删除所有日志
+         */
         deleteAllBlog: function() {
             this.$checkAll.checked = false;
             var $checkboxes = $.querySelectorAll(this.$blogList, '.j-check');
@@ -510,6 +639,9 @@
                 onload: this.cbDeleteAllBlog.bind(this, $blogsToDelete)
             });
         },
+        /**
+         * 删除所有日志的回调函数
+         */
         cbDeleteAllBlog: function($blogsToDelete, xhr) {
             if (xhr.responseText === '1') {
                 for (var i = 0, l = $blogsToDelete.length; i < l; i++) {
@@ -521,18 +653,33 @@
             }
         },
 
+        /**
+         * 鼠标移动到好友日志列表，停止滚动
+         */
         enterFriendBlogs: function() {
             clearTimeout(this.rollTimer);
+            this.rollTimer = null;
         },
+        /**
+         * 鼠标移出好友日志列表，开始滚动
+         */
         leaveFriendBlogs: function() {
-            this.rollFriendBlogs();
+            if (this.rollTimer == null) {
+                this.rollFriendBlogs();
+            }
         },
+        /**
+         * 滚动好友日志列表
+         */
         rollFriendBlogs: function() {
             this.rollTimer = setTimeout(function(){
                 this.doRollFriendBlogs();
                 this.rollFriendBlogs();
             }.bind(this), this.rollInterval);
         },
+        /**
+         * 实际滚动处理函数
+         */
         doRollFriendBlogs: function() {
             var marginTop = parseFloat(this.$friendBlogList.style.marginTop) || 0;
             if (-marginTop >= this.friendBlogHeight) {
