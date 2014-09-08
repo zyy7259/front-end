@@ -599,7 +599,7 @@
          * 勾选所有日志
          */
         checkAllBlog: function() {
-            var $checkboxes = $.querySelectorAll(this.$blogList, '.j-check');
+            var $checkboxes = $.querySelectorAll(this.$blogListWrap, '.j-check');
             var checked = this.$checkAll.checked;
             for (var i = 0, l = $checkboxes.length; i < l; i++) {
                 var $checkbox = $checkboxes[i];
@@ -611,7 +611,7 @@
          */
         deleteAllBlog: function() {
             this.$checkAll.checked = false;
-            var $checkboxes = $.querySelectorAll(this.$blogList, '.j-check');
+            var $checkboxes = $.querySelectorAll(this.$blogListWrap, '.j-check');
             var $blogsToDelete = [];
             var ids = [];
             for (var i = 0, l = $checkboxes.length; i < l; i++) {
